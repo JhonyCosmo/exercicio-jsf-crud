@@ -1,0 +1,11 @@
+package br.com.exercicio.jsfcrud.bean;
+
+
+
+@ManagedBean
+public class LivroBean {
+
+	public void gravar() {
+		System.out.println("Gravando Livro");
+	}
+}

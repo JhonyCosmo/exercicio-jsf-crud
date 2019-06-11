@@ -1,0 +1,11 @@
+package br.com.exercicio.jsfcrud.bean;
+
+public class Livro {
+	public String titulo;
+	public String isbn;
+	public double preco;
+	public String dataLancamento;
+
+	public Livro() {
+	}
+}

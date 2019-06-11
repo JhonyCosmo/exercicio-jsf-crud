@@ -1,0 +1,45 @@
+package br.com.exercicio.jsfcrud.bean;
+
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean
+public class LivroBean {
+
+	public String getTitulo() {
+		return livro.getTitulo();
+	}
+
+	public void setTitulo(String titulo) {
+		this.livro.setTitulo(titulo);
+	}
+
+	public String getIsbn() {
+		return livro.getIsbn();
+	}
+
+	public void setIsbn(String isbn) {
+		this.livro.setIsbn(isbn);
+	}
+
+	public double getPreco() {
+		return livro.getPreco();
+	}
+
+	public void setPreco(double preco) {
+		this.livro.setPreco(preco);
+	}
+
+	public String getDataLancamento() {
+		return livro.getDataLancamento();
+	}
+
+	public void setDataLancamento(String dataLancamento) {
+		this.livro.setDataLancamento(dataLancamento);
+	}
+
+	private Livro livro = new Livro();
+
+	public void gravar() {
+		System.out.println("Gravando Livro " + this.livro.getTitulo());
+	}
+}
