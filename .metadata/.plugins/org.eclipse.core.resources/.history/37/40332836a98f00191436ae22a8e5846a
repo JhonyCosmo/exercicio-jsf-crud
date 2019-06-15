@@ -79,36 +79,47 @@ public class EnderecoBean {
 	        ClassLoader classLoader = new EnderecoBean().getClass().getClassLoader();	 
 	        File file = new File(classLoader.getResource(fileName).getFile());
 			
-	        if (file.exists())
-	        {	
+	        if (file.exists()){			
+				
 			    InputStream is = new FileInputStream(file);
 					String jsonTxt = IOUtils.toString(is, "UTF-8");					
 					JSONObject json = new JSONObject(jsonTxt);						
 					
-					for (Object objEstado : json.getJSONArray("estados"))
-					{						
+					for (Object objEstado : json.getJSONArray("estados")) {
+						
 						JSONObject estado= new JSONObject(objEstado.toString());
-						//Buscando estado selecionado						
+						//Buscando estado selecionado
+						
 						String uf="PB";
 						if(this.endereco.getEstado()!=null) {uf=this.endereco.getEstado();}
 						
-						if(estado.get("sigla").equals(uf.toUpperCase())) 
-						{							
-							for (Object objCidade : estado.getJSONArray("cidades")) 
-							{
+						if(estado.get("sigla").equals(uf.toUpperCase())) {
+							
+							for (Object objCidade : estado.getJSONArray("cidades")) {								
+								
 								System.out.println(objCidade.toString());
-								listaCidades.add(new SelectItem(objCidade.toString(), objCidade.toString()));								
+								//JSONObject cidade = new JSONObject(objCidade.toString());								
+								
+								listaCidades.add(new SelectItem(objCidade.toString(), objCidade.toString()));
+								//listaCidades.add("","");
+								
 							}
 						}
-					}			
-				return listaCidades;				
-	        }
+						
+						
+						
+					}
+			
+				return listaCidades;		
+				
+			   }
 			
 		}catch(Exception ex){
 			System.out.println("Erro" + ex.getMessage());
 		}		
 		 
-		return new ArrayList<SelectItem>();				
+		return new ArrayList<SelectItem>();
+				
 	}
 	        
 	
