@@ -68,7 +68,7 @@
 					
 					<p:commandButton 
 					value="Editar" icon="fa fa-edit" 						
-					action="#{usuarioBean.editarUsuario(usuario)}"
+					action="#{usuarioBeann.editarUsuario(usuario)}"
 					update="tableUsuarios"
 					style="width:150px"/>
 					

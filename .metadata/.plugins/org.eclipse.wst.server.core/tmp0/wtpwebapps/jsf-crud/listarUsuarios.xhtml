@@ -7,6 +7,17 @@
 	<title>Agenda</title>
 </h:head>
 <h:body>
+
+<style type="text/css">
+    i {
+        margin-right: 10px;
+    }
+ 
+    .ui-grid-col-3 {
+        padding: 4px 10px;
+    }   
+</style>
+
 	<p:panel header="Listar Usuários">
 		<h:form>
 			<p:commandLink value="Home" action="index" />
@@ -52,7 +63,20 @@
 					<p:commandButton value="Detalhes" icon="fa fa-search"
 						action="#{usuarioBean.carregarDetalhes2(usuario)}"
 						update=":formDialog:dialogDetalhes"
-						oncomplete="PF('dialogDetail').show()" />
+						oncomplete="PF('dialogDetail').show()" 
+						style="width:150px"/>
+					
+					<p:commandButton 
+					value="Editar" icon="fa fa-edit" 						
+					action="#{usuarioBean.editarUsuario(usuario)}"
+					update="tableUsuarios"
+					style="width:150px"/>
+					
+					<p:commandButton 
+					value="Deletar" icon="fa fa-remove" 						
+					action="#{usuarioBean.removerUsuario(usuario)}"
+					update="tableUsuarios"
+					style="width:150px"/>
 				</p:column>
 			</p:dataTable>
 		</h:form>

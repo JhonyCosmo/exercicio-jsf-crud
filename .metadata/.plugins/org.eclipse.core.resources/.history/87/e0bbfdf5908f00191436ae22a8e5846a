@@ -79,17 +79,6 @@ public class UsuarioBean {
 		return Usuarios.INSTANCE.allUsers();
 	}
 
-	public String removerUsuario(Usuario usuario) {		
-		Usuarios.INSTANCE.remove(usuario);
-		System.out.println("Removendo Usuario");
-		return "listarUsuarios";
-	}
-	
-	public String editarUsuario(Usuario usuario) {
-		this.usuario = usuario;
-		return "cadastroUsuario";
-	}
-	
 	public String carregarDetalhes(Usuario usuario) {
 		this.usuario = usuario;
 		return "detalhesUsuario";

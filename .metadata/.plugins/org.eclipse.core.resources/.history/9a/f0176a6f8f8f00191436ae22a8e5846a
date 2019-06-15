@@ -12,9 +12,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import br.com.exercicio.jsfcrud.enumerator.Enderecos;
 import br.com.exercicio.jsfcrud.enumerator.Usuarios;
-import br.com.exercicio.jsfcrud.vo.Endereco;
 import br.com.exercicio.jsfcrud.vo.Usuario;
 
 @ManagedBean(name = "usuarioBean")
@@ -45,33 +43,20 @@ public class UsuarioBean {
 	}
 
 	public String adicionarUsuario() {
-		//Validando o nome
-		Usuario usuarioNome = Usuarios.INSTANCE.getByName(usuario.getNome());
-		
-		if(Usuarios.INSTANCE.getByName(usuario.getNome())!=null) {
-			
-			if(usuarioNome.getId().equals(usuario.getId())==false) {
-				
-				adicionarMensagemErro("Username já existente");
-				
-				return "";
-			}
-			
-		}
-		
-		Usuario usuarioPersistido=Usuarios.INSTANCE.get(usuario.id);
-		
-		if(usuarioPersistido!=null) {
-			
-			usuarioPersistido=usuario;
-			
-		}else {
-			
-			Usuarios.INSTANCE.addUser(usuario);
-			
-		}		
+		List<Usuario> listAux = getListUsuario();
 
-		
+		if (listAux != null) {
+			for (Usuario u : listAux) {
+				if (u.getUsername().equals(usuario.getUsername())) {
+					FacesContext fc = FacesContext.getCurrentInstance();
+					FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username já existente",
+							"Username já existente");
+					fc.addMessage(null, fm);
+					return "";
+				}
+			}
+		}
+		Usuarios.INSTANCE.addUser(usuario);
 		return "listarUsuarios";
 	}
 
@@ -79,17 +64,6 @@ public class UsuarioBean {
 		return Usuarios.INSTANCE.allUsers();
 	}
 
-	public String removerUsuario(Usuario usuario) {		
-		Usuarios.INSTANCE.remove(usuario);
-		System.out.println("Removendo Usuario");
-		return "listarUsuarios";
-	}
-	
-	public String editarUsuario(Usuario usuario) {
-		this.usuario = usuario;
-		return "cadastroUsuario";
-	}
-	
 	public String carregarDetalhes(Usuario usuario) {
 		this.usuario = usuario;
 		return "detalhesUsuario";
@@ -115,12 +89,4 @@ public class UsuarioBean {
 		this.listSexo = listSexo;
 	}
 
-	private void adicionarMensagemErro(String mensagem) {
-		
-		FacesContext fc = FacesContext.getCurrentInstance();
-		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem,
-				"Username já existente");
-		fc.addMessage(null, fm);
-		
-	}
 }
