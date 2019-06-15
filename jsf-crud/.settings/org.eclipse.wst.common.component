@@ -2,6 +2,7 @@
     <wb-module deploy-name="jsf-crud">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <property name="context-root" value="jsf-crud"/>
         <property name="java-output-path" value="/jsf-crud/build/classes"/>
     </wb-module>

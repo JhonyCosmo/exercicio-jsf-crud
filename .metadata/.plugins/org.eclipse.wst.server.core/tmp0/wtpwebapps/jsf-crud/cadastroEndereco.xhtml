@@ -7,6 +7,11 @@
 	<title>Agenda</title>
 </h:head>
 <h:body>
+<style type="text/css">
+    .ui-grid-col-3 {
+        padding: 4px 10px;
+    }   
+</style>
 	<p:messages showDetail="true" showSummary="false" globalOnly="true" />
 	<p:panel header="Cadastro de Enderecos">
 		<h:form>
@@ -33,15 +38,17 @@
 				<p:message for="cep" />
 				
 				<p:outputLabel value="Cidade:" for="cidade" />
-				<p:inputText id="cidade" value="#{enderecoBean.endereco.cidade}" />
+				<p:selectOneMenu id="cidade" value="#{enderecoBean.endereco.cidade}">									
+					<f:selectItems value="#{enderecoBean.listCidades}" />
+				</p:selectOneMenu>				
 				<p:message for="cidade" />
 
 				<p:outputLabel value="Estado:" for="estado" />
 				<p:selectOneMenu id="estado" value="#{enderecoBean.endereco.estado}">
+					<p:ajax update=":cidade" />	
 					<f:selectItems value="#{enderecoBean.listEstados}" />
 				</p:selectOneMenu>
-				<p:message for="estado" />		
-
+				<p:message for="estado" />
 				
 			</p:panelGrid>
 
