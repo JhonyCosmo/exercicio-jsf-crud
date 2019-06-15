@@ -81,9 +81,7 @@ public class EnderecoBean {
 					for (Object objCidade : estado.getJSONArray("cidades")) 
 					{
 						uf.AddCidade(objCidade.toString());															
-					}	
-					
-					listaEstados.add(uf);
+					}						
 				}
 							
 	        }

@@ -574,3 +574,15 @@
 0:0:0:0:0:0:0:1 - - [15/Jun/2019:16:59:44 -0300] "GET /jsf-crud/javax.faces.resource/theme.css.jsf?ln=primefaces-aristo HTTP/1.1" 200 -
 0:0:0:0:0:0:0:1 - - [15/Jun/2019:16:59:44 -0300] "GET /jsf-crud/javax.faces.resource/components.css.jsf?ln=primefaces&v=7.0 HTTP/1.1" 200 93207
 0:0:0:0:0:0:0:1 - - [15/Jun/2019:16:59:44 -0300] "GET /favicon.ico HTTP/1.1" 404 1016
+127.0.0.1 - - [15/Jun/2019:20:14:19 -0300] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:14:51 -0300] "GET /jsf-crud/listarEnderecos.jsf HTTP/1.1" 200 10705
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:14:51 -0300] "GET /favicon.ico HTTP/1.1" 404 -
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:14:54 -0300] "POST /jsf-crud/listarEnderecos.jsf HTTP/1.1" 200 62101
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:18:34 -0300] "GET /jsf-crud/listarEnderecos.jsf HTTP/1.1" 200 10702
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:18:36 -0300] "POST /jsf-crud/listarEnderecos.jsf HTTP/1.1" 200 9850
+127.0.0.1 - - [15/Jun/2019:20:19:38 -0300] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:19:39 -0300] "GET /jsf-crud/WEB-INF/classes/br/com/exercicio/jsfcrud/bean/EnderecoBean.java HTTP/1.1" 404 992
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:19:45 -0300] "GET /jsf-crud/listarEnderecos.jsf HTTP/1.1" 200 10702
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:19:47 -0300] "POST /jsf-crud/listarEnderecos.jsf HTTP/1.1" 200 9848
+127.0.0.1 - - [15/Jun/2019:20:20:26 -0300] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:20:27 -0300] "GET /jsf-crud/WEB-INF/classes/br/com/exercicio/jsfcrud/bean/EnderecoBean.java HTTP/1.1" 404 992

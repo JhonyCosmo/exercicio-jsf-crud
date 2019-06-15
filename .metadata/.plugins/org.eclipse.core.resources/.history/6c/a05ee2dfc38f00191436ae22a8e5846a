@@ -44,14 +44,32 @@ public class EnderecoBean {
 
 	@PostConstruct
 	public void initEstados() {
-		
-		carregarUnidadesFederativas();
-		
 		listEstado = new ArrayList<>();
+		listEstado.add(new SelectItem("AC", "Acre"));
+		listEstado.add(new SelectItem("AL", "Alagoas"));
+		listEstado.add(new SelectItem("AP", "Amapá"));
+		listEstado.add(new SelectItem("AM", "Amazonas"));
+		listEstado.add(new SelectItem("BA", "Bahia"));
+		listEstado.add(new SelectItem("CE", "Ceará"));
+		listEstado.add(new SelectItem("DF", "Distrito Federal"));
+		listEstado.add(new SelectItem("ES", "Espírito Santo"));
+		listEstado.add(new SelectItem("GO", "Goiás"));
+		listEstado.add(new SelectItem("MA", "Maranhão"));
+		listEstado.add(new SelectItem("MT", "Mato Grosso"));
+		listEstado.add(new SelectItem("MS", "Mato Grosso do Sul"));
+		listEstado.add(new SelectItem("MG", "Minas Gerais"));
+		listEstado.add(new SelectItem("PB", "Paraíba"));
+		listEstado.add(new SelectItem("PR", "Paraná"));
+		listEstado.add(new SelectItem("PE", "Pernambuco"));
+		listEstado.add(new SelectItem("RJ", "Rio de Janeiro"));
+		listEstado.add(new SelectItem("RN", "Rio Grande do Norte"));
+		listEstado.add(new SelectItem("RO", "Rondônia"));
+		listEstado.add(new SelectItem("RR", "Roraima"));
+		listEstado.add(new SelectItem("SC", "Santa Catarina"));
+		listEstado.add(new SelectItem("SP", "São Paulo"));
+		listEstado.add(new SelectItem("SE", "Sergipe"));
+		listEstado.add(new SelectItem("TO", "Tocantins"));		
 		
-		for (UnidadeFederativa uf : listaEstados) {
-			listEstado.add(new SelectItem(uf.getSigla(), uf.getEstado()));
-		}
 	}
 	
 	public void carregarUnidadesFederativas() {
@@ -67,25 +85,25 @@ public class EnderecoBean {
 	        if (file.exists())
 	        {	
 			    InputStream is = new FileInputStream(file);
-				String jsonTxt = IOUtils.toString(is, "UTF-8");					
-				JSONObject json = new JSONObject(jsonTxt);						
-				
-				for (Object objEstado : json.getJSONArray("estados"))
-				{						
-					JSONObject estado= new JSONObject(objEstado.toString());					
-					UnidadeFederativa uf= new UnidadeFederativa();
+					String jsonTxt = IOUtils.toString(is, "UTF-8");					
+					JSONObject json = new JSONObject(jsonTxt);						
 					
-					uf.setSigla(estado.get("sigla").toString());
-					uf.setEstado(estado.get("nome").toString());
-										
-					for (Object objCidade : estado.getJSONArray("cidades")) 
-					{
-						uf.AddCidade(objCidade.toString());															
-					}	
-					
-					listaEstados.add(uf);
-				}
-							
+					for (Object objEstado : json.getJSONArray("estados"))
+					{						
+						JSONObject estado= new JSONObject(objEstado.toString());
+						
+						UnidadeFederativa uf= new UnidadeFederativa();
+						
+						uf.setSigla(estado.get("sigla").toString());
+						
+											
+						for (Object objCidade : estado.getJSONArray("cidades")) 
+						{
+							uf.AddCidade(objCidade.toString());															
+						}
+						
+					}			
+				return listaCidades;				
 	        }
 			
 		}catch(Exception ex){
@@ -99,16 +117,41 @@ public class EnderecoBean {
 		
 		List<SelectItem> listaCidades = new ArrayList<SelectItem>();
 		
-		for (UnidadeFederativa uf : listaEstados) 
-		{			
-			if(uf.getSigla().equals(this.endereco.getEstado())) {
-				
-				for (String cidade : uf.getCidades()) {
-					listaCidades.add(new SelectItem(cidade,cidade));
-				}				
-			}			
-		}		 
-		return listaCidades;				
+		try {	
+			String fileName = "estados-cidades.json";
+	        ClassLoader classLoader = new EnderecoBean().getClass().getClassLoader();	 
+	        File file = new File(classLoader.getResource(fileName).getFile());
+			
+	        if (file.exists())
+	        {	
+			    InputStream is = new FileInputStream(file);
+					String jsonTxt = IOUtils.toString(is, "UTF-8");					
+					JSONObject json = new JSONObject(jsonTxt);						
+					
+					for (Object objEstado : json.getJSONArray("estados"))
+					{						
+						JSONObject estado= new JSONObject(objEstado.toString());
+						//Buscando estado selecionado						
+						String uf="PB";
+						if(this.endereco.getEstado()!=null) {uf=this.endereco.getEstado();}
+						
+						if(estado.get("sigla").equals(uf.toUpperCase())) 
+						{							
+							for (Object objCidade : estado.getJSONArray("cidades")) 
+							{
+								System.out.println(objCidade.toString());
+								listaCidades.add(new SelectItem(objCidade.toString(), objCidade.toString()));								
+							}
+						}
+					}			
+				return listaCidades;				
+	        }
+			
+		}catch(Exception ex){
+			System.out.println("Erro" + ex.getMessage());
+		}		
+		 
+		return new ArrayList<SelectItem>();				
 	}
 	        
 	
