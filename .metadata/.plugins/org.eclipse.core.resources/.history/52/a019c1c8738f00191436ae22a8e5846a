@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Agenda</title>
+</h:head>
+<h:body>
+	<p:messages showDetail="true" showSummary="false" globalOnly="true" />
+	<p:panel header="Cadastro de Enderecos">
+		<h:form>
+			<p:commandLink value="Listar Enderecos" action="listarEnderecos" />
+		</h:form>
+
+		<h:form id="form" prependId="false">
+			<p:panelGrid columns="3">
+				<p:outputLabel value="Descrição:" for="descricao" />
+				<p:inputText id="descricao" value="#{enderecoBean.endereco.descricao}"
+					required="true" />
+				<p:message for="descricao" />
+
+				<p:outputLabel value="Número:" for="numero" />
+				<p:inputText id="numero" value="#{enderecoBean.endereco.numero}" />
+				<p:message for="numero" />
+
+				<p:outputLabel value="Cidade:" for="cidade" />
+				<p:password id="cidade" value="#{enderecoBean.endereco.cidade}" />
+				<p:message for="cidade" />
+
+				<p:outputLabel value="Estado:" for="estado" />
+				<p:selectOneRadio id="estado" value="#{enderecoBean.endereco.estado}">
+					<f:selectItems value="#{enderecoBean.listEstados}" />
+				</p:selectOneRadio>
+				<p:message for="estado" />
+
+				<p:outputLabel value="Data Nascimento:" for="dtNasc" />
+				<p:calendar id="dtNasc" value="#{usuarioBean.usuario.dataNasc}"
+					showOn="button" navigator="true" />
+				<p:message id="msgDtNasc" for="dtNasc" />
+
+				<p:outputLabel value="Cidade de Nascimento:" for="cidadeNasc" />
+				<p:selectOneMenu id="cidadeNasc"
+					value="#{usuarioBean.usuario.cidadeNasc}">
+					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+					<f:selectItem itemLabel="João Pessoa" itemValue="JP" />
+					<f:selectItem itemLabel="Recife" itemValue="RE" />
+				</p:selectOneMenu>
+				<p:message for="cidadeNasc" />
+			</p:panelGrid>
+
+			<p:commandButton value="Cadastrar"
+				action="#{usuarioBean.adicionarUsuario}" 
+				ajax="false" />
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

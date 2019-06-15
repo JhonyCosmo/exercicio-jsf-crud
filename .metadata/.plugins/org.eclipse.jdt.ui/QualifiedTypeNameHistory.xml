@@ -3,4 +3,5 @@
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="javax.annotation.ManagedBean"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ManagedBean"/>
+<fullyQualifiedTypeName name="br.com.exercicio.jsfcrud.bean.Livro"/>
 </qualifiedTypeNameHistroy>

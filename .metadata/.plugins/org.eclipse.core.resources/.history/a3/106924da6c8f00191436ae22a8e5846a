@@ -1,0 +1,13 @@
+package br.com.exercicio.jsfcrud.vo;
+
+import java.util.Date;
+
+public class Cliente {
+	
+	private String nome;
+	private String endereco;
+	private String numero;
+	private String sexo;
+	private Date dataNasc;
+	private String cidadeNasc;
+}

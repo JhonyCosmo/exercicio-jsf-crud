@@ -1,0 +1,5 @@
+package br.com.exercicio.jsfcrud.vo;
+
+public class Usuario {
+
+}
