@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;cadastroEndereco.xhtml&apos; to &apos;cadastroEndereco.xhtml&apos;&#x0D;&#x0A;- Original project: &apos;jsf-crud&apos;&#x0D;&#x0A;- Destination element: &apos;cadastroEndereco.xhtml&apos;&#x0D;&#x0A;- Original element: &apos;cadastroEndereco.xhtml&apos;" description="Copy file" element1="WebContent/cadastroEndereco.xhtml" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1560643571842" target="/jsf-crud/WebContent/cadastroEndereco.xhtml" units="0" version="1.0"/>
-</session>

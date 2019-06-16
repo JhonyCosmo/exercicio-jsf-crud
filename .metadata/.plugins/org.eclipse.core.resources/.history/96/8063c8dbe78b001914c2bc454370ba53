@@ -1,8 +1,0 @@
-package br.com.exercicio.jsfcrud.bean;
-
-public class LivroBean {
-
-	public void gravar() {
-		System.out.println("Gravando Livro");
-	}
-}
