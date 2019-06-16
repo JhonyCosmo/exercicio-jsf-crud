@@ -4,20 +4,15 @@
 		<item key="dialogHeight" value="788"/>
 		<item key="dialogWidth" value="873"/>
 		<list key="textEntries">
-			<item value="2"/>
 			<item value="1"/>
 		</list>
 		<list key="orderedElements">
-			<item value="org.eclipse.jdt.ui.edit.text.java.create.getter.setter"/>
 			<item value="org.eclipse.wst.server.ui.ServersView"/>
 		</list>
 		<list key="orderedProviders">
-			<item value="org.eclipse.ui.commands"/>
 			<item value="org.eclipse.e4.ui.parts"/>
 		</list>
 		<list key="textArray">
-			<item value="gett"/>
-			<item value="get"/>
 			<item value="server"/>
 		</list>
 	</section>
