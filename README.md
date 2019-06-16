@@ -2,7 +2,7 @@ Exercício da Disciplina - Desenvolvimento Java (Web Frameworks)
 ===================
 Pós - Desenvolvimento de Sistemas para Web Unipe
 
-Exercício de avaliação da disciplina. Aplicação desenvolvida com JSF e PrimeFace.
+Exercício de avaliação da disciplina. Aplicação desenvolvida com JSF e PrimeFaces.
 
 Alunos: 
 
