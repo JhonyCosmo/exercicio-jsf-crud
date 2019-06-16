@@ -6,7 +6,7 @@ public class Endereco extends ModelBase{
 	private String numero;
 	private String pontoReferencia;
 	private String cidade;
-	private String estado;
+	private String estado="AC";
 	private String cep;	
 	
 	public String getDescricao() {

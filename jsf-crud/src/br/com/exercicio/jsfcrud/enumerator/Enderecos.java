@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
 import br.com.exercicio.jsfcrud.vo.Endereco;
-import br.com.exercicio.jsfcrud.vo.Usuario;
 
 public enum Enderecos {
 

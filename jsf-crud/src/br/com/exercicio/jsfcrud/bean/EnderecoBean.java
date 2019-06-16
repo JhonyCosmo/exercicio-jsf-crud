@@ -17,14 +17,21 @@ import org.primefaces.shaded.commons.io.IOUtils;
 import br.com.exercicio.jsfcrud.enumerator.Enderecos;
 import br.com.exercicio.jsfcrud.vo.Endereco;
 
+import br.com.exercicio.jsfcrud.vo.UnidadeFederativa;
+import br.com.exercicio.jsfcrud.vo.Usuario;
+
+
 @ManagedBean(name = "enderecoBean")
 @SessionScoped
 public class EnderecoBean {
 
 	private Endereco endereco;
-	private List<SelectItem> listEstado;
-	private List<SelectItem> listaCidades;
 
+	private List<UnidadeFederativa> listaEstados;
+	private List<SelectItem> listEstado;
+	private String filtro;
+	private List<Endereco> listaEndereco;
+	
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -35,67 +42,84 @@ public class EnderecoBean {
 
 	@PostConstruct
 	public void initEstados() {
+		
+		carregarUnidadesFederativas();
+		
 		listEstado = new ArrayList<>();
-		listEstado.add(new SelectItem("AC", "Acre"));
-		listEstado.add(new SelectItem("AL", "Alagoas"));
-		listEstado.add(new SelectItem("AP", "Amapá"));
-		listEstado.add(new SelectItem("AM", "Amazonas"));
-		listEstado.add(new SelectItem("BA", "Bahia"));
-		listEstado.add(new SelectItem("CE", "Ceará"));
-		listEstado.add(new SelectItem("DF", "Distrito Federal"));
-		listEstado.add(new SelectItem("ES", "Espírito Santo"));
-		listEstado.add(new SelectItem("GO", "Goiás"));
-		listEstado.add(new SelectItem("MA", "Maranhão"));
-		listEstado.add(new SelectItem("MT", "Mato Grosso"));
-		listEstado.add(new SelectItem("MS", "Mato Grosso do Sul"));
-		listEstado.add(new SelectItem("MG", "Minas Gerais"));
-		listEstado.add(new SelectItem("PB", "Paraíba"));
-		listEstado.add(new SelectItem("PR", "Paraná"));
-		listEstado.add(new SelectItem("PE", "Pernambuco"));
-		listEstado.add(new SelectItem("RJ", "Rio de Janeiro"));
-		listEstado.add(new SelectItem("RN", "Rio Grande do Norte"));
-		listEstado.add(new SelectItem("RO", "Rondônia"));
-		listEstado.add(new SelectItem("RR", "Roraima"));
-		listEstado.add(new SelectItem("SC", "Santa Catarina"));
-		listEstado.add(new SelectItem("SP", "São Paulo"));
-		listEstado.add(new SelectItem("SE", "Sergipe"));
-		listEstado.add(new SelectItem("TO", "Tocantins"));
-
+		
+		for (UnidadeFederativa uf : listaEstados) {
+			listEstado.add(new SelectItem(uf.getSigla(), uf.getEstado()));
+		}
+		
+		listaEndereco=Enderecos.INSTANCE.all();
 	}
-
-	private void updateCidades() {
-		try {
-			String fileName = "estadosCidades.json";
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			File file = new File(classLoader.getResource(fileName).getFile());
-			System.out.println("Arquivo encontrado : " + file.exists());
-			if (file.exists()) {
-				InputStream is = new FileInputStream(file);
-				String jsonTxt = IOUtils.toString(is, "UTF-8");
-				JSONObject json = new JSONObject(jsonTxt);
-
-				for (Object objEstado : json.getJSONArray("estados")) {
-					JSONObject estado = new JSONObject(objEstado.toString());
-					// Buscando estado selecionado
-					String uf = "PB";
-					if (this.endereco.getEstado() != null) {
-						uf = this.endereco.getEstado();
-					}
-
-					if (estado.get("sigla").equals(uf.toUpperCase())) {
-						for (Object objCidade : estado.getJSONArray("cidades")) {
-							System.out.println(objCidade.toString());
-							listaCidades.add(new SelectItem(objCidade.toString(), objCidade.toString()));
-						}
-					}
-				}
+	
+	public void filtrarTabela() {
+		listaEndereco = new ArrayList<>();
+		for (Endereco u : Enderecos.INSTANCE.all()) {
+			if (u.getCep().contains(filtro)) {
+				listaEndereco.add(u);
 			}
-
-		} catch (Exception ex) {
-			System.out.println("Erro" + ex.getMessage());
 		}
 	}
-
+	
+	public void carregarUnidadesFederativas() {
+		
+		listaEstados = new ArrayList<UnidadeFederativa>();
+		
+		try 
+		{			
+			String fileName = "estados-cidades.json";
+	        ClassLoader classLoader = new EnderecoBean().getClass().getClassLoader();	 
+	        File file = new File(classLoader.getResource(fileName).getFile());
+			
+	        if (file.exists())
+	        {	
+			    InputStream is = new FileInputStream(file);
+				String jsonTxt = IOUtils.toString(is, "UTF-8");					
+				JSONObject json = new JSONObject(jsonTxt);						
+				
+				for (Object objEstado : json.getJSONArray("estados"))
+				{						
+					JSONObject estado= new JSONObject(objEstado.toString());					
+					UnidadeFederativa uf= new UnidadeFederativa();
+					
+					uf.setSigla(estado.get("sigla").toString());
+					uf.setEstado(estado.get("nome").toString());
+										
+					for (Object objCidade : estado.getJSONArray("cidades")) 
+					{
+						uf.AddCidade(objCidade.toString());															
+					}	
+					
+					listaEstados.add(uf);
+				}
+							
+	        }
+			
+		}catch(Exception ex){
+			System.out.println("Erro" + ex.getMessage());
+		}	
+		
+	}
+		
+	public List<SelectItem> getListCidades(){
+		
+		List<SelectItem> listaCidades = new ArrayList<SelectItem>();
+		
+		for (UnidadeFederativa uf : listaEstados) 
+		{	
+			
+			if(uf.getSigla().equals(this.endereco.getEstado())) {
+				
+				for (String cidade : uf.getCidades()) {
+					listaCidades.add(new SelectItem(cidade,cidade));
+				}				
+			}			
+		}		 
+		return listaCidades;				
+	}
+	        	
 	public String prepararCadastro() {
 		endereco = new Endereco();
 		return "cadastroEndereco";
@@ -134,7 +158,7 @@ public class EnderecoBean {
 	}
 
 	public List<Endereco> getListEndereco() {
-		return Enderecos.INSTANCE.all();
+		return listaEndereco;
 	}
 
 	public String carregarDetalhes(Endereco endereco) {
@@ -150,12 +174,15 @@ public class EnderecoBean {
 		return listEstado;
 	}
 
-	public List<SelectItem> getListCidades() {
-		this.updateCidades();
-		return listaCidades;
-	}
-
 	public void setListSexo(List<SelectItem> listEstado) {
 		this.listEstado = listEstado;
+	}
+	
+	public String getFiltro() {
+		return filtro;
+	}
+
+	public void setFiltro(String filtro) {
+		this.filtro = filtro;
 	}
 }

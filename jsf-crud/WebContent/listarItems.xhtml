@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Agenda</title>
+</h:head>
+<h:body>
+<style type="text/css">
+    i {
+        margin-right: 10px;
+    }
+ 
+    .ui-grid-col-3 {
+        padding: 4px 10px;
+    }   
+</style>
+
+	<p:panel header="Listar Itens">
+		<h:form>
+			<p:commandLink value="Home" action="index" />
+			<br />
+			<p:commandButton value="Novo"
+				action="#{itemBean.prepararCadastro}" ajax="false">
+			</p:commandButton>
+			<p:commandButton value="Mesma Pagina"
+				action="#{itemBean.prepararList}">
+			</p:commandButton>
+		</h:form>
+
+		<h:form>
+			<p:dataTable id="tableItems" value="#{itemBean.listItem}"
+				var="item" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<h:outputText value="Itens" />
+				</f:facet>
+
+				<p:column headerText="Descrição">
+					<h:outputText value="#{item.descricao}" />
+				</p:column>
+
+				<p:column headerText="Quantidade">
+					<h:outputText value="#{item.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Preço">
+					<h:outputText value="#{item.preco}" />
+				</p:column>
+				
+				<p:column headerText="Ações">
+				
+					<p:commandButton value="Detalhes" icon="fa fa-search"
+					action="#{itemBean.carregarDetalhes2(item)}"
+					update=":formDialog:dialogDetalhes"
+					oncomplete="PF('dialogDetail').show()" 
+					style="width:150px"/>
+					
+					<p:commandButton 
+					value="Editar" icon="fa fa-edit" 						
+					action="#{itemBean.editarItem(item)}"
+					update="tableItems"
+					style="width:150px"/>
+					
+					<p:commandButton 
+					value="Deletar" icon="fa fa-remove" 						
+					action="#{itemBean.removerItem(item)}"
+					update="tableItems"
+					style="width:150px"/>
+					
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<h:form id="formDialog">
+			<p:dialog id="dialogDetalhes" widgetVar="dialogDetail" modal="true">
+				<p:panelGrid id="panelDetail" columns="2">
+					<p:outputLabel value="Descrição:" />
+					<h:outputText value="#{itemBean.item.descricao}" />
+
+					<p:outputLabel value="Quantidade:" />
+					<h:outputText value="#{itemBean.item.quantidade}" />
+
+					<p:outputLabel value="Preço:" />
+					<h:outputText value="#{itemBean.item.preco}" />					
+					
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+	</p:panel>
+</h:body>
+</html>

@@ -28,6 +28,7 @@ i {
 		</h:form>
 
 		<h:form>
+		
 			<p:dataTable id="tableUsuarios" value="#{usuarioBean.listUsuario}"
 				var="usuario" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -88,10 +89,7 @@ i {
 					<h:outputText value="#{usuarioBean.usuario.sexo}" />
 
 					<p:outputLabel value="Data de Nascimento:" />
-					<h:outputText value="#{usuarioBean.usuario.dataNasc}" />
-
-					<p:outputLabel value="Cidade de Nascimento:" />
-					<h:outputText value="#{usuarioBean.usuario.cidadeNasc}" />
+					<h:outputText value="#{usuarioBean.usuario.dataNasc}" />>
 				</p:panelGrid>
 			</p:dialog>
 		</h:form>

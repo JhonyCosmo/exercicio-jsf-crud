@@ -45,11 +45,11 @@ public class UsuarioBean {
 	public String adicionarUsuario() {
 		// Validando o nome
 		Usuario usuarioNome = Usuarios.INSTANCE.getByName(usuario.getNome());
-
-		if (Usuarios.INSTANCE.getByName(usuario.getNome()) != null) {
-
-			if (usuarioNome.getId().equals(usuario.getId()) == false) {
-
+		
+		if(usuarioNome!=null) {
+			
+			if(usuarioNome.getId().equals(usuario.getId())==false) {
+				
 				adicionarMensagemErro("Username já existente");
 
 				return "";
