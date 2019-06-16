@@ -32,8 +32,7 @@ public class EnderecoBean {
 	private Endereco endereco;
 	private List<UnidadeFederativa> listaEstados;
 	private List<SelectItem> listEstado;
-	private String filtro;
-	private List<Endereco> listaEndereco;
+	
 	
 	public Endereco getEndereco() {
 		return endereco;
@@ -52,17 +51,6 @@ public class EnderecoBean {
 		
 		for (UnidadeFederativa uf : listaEstados) {
 			listEstado.add(new SelectItem(uf.getSigla(), uf.getEstado()));
-		}
-		
-		listaEndereco=Enderecos.INSTANCE.all();
-	}
-	
-	public void filtrarTabela() {
-		listaEndereco = new ArrayList<>();
-		for (Endereco u : Enderecos.INSTANCE.all()) {
-			if (u.getCep().contains(filtro)) {
-				listaEndereco.add(u);
-			}
 		}
 	}
 	
@@ -105,14 +93,14 @@ public class EnderecoBean {
 		}	
 		
 	}
-		
+	
+	
 	public List<SelectItem> getListCidades(){
 		
 		List<SelectItem> listaCidades = new ArrayList<SelectItem>();
 		
 		for (UnidadeFederativa uf : listaEstados) 
-		{	
-			
+		{			
 			if(uf.getSigla().equals(this.endereco.getEstado())) {
 				
 				for (String cidade : uf.getCidades()) {
@@ -135,7 +123,7 @@ public class EnderecoBean {
 	public String prepararList() {
 		return "";
 	}
-
+	
 	public String adicionarEndereco() {
 		
 		Endereco enderecoPersistido=Enderecos.INSTANCE.get(endereco.id);
@@ -161,7 +149,7 @@ public class EnderecoBean {
 	}
 	
 	public List<Endereco> getListEndereco() {
-		return listaEndereco;
+		return Enderecos.INSTANCE.all();
 	}
 	
 	public String carregarDetalhes(Endereco endereco) {
@@ -179,13 +167,5 @@ public class EnderecoBean {
 
 	public void setListSexo(List<SelectItem> listEstado) {
 		this.listEstado = listEstado;
-	}
-	
-	public String getFiltro() {
-		return filtro;
-	}
-
-	public void setFiltro(String filtro) {
-		this.filtro = filtro;
 	}
 }

@@ -30,15 +30,6 @@
 		</h:form>
 
 		<h:form>
-		
-			<fieldset>
-				<p:outputLabel value="Filtar CEP:" for="filtro" />
-				<p:inputText value="#{enderecoBean.filtro}" id="filtro">
-					<p:ajax event="keyup" listener="#{enderecoBean.filtrarTabela}"
-						update="tableEnderecos" />
-				</p:inputText>
-			</fieldset>
-			
 			<p:dataTable id="tableEnderecos" value="#{enderecoBean.listEndereco}"
 				var="endereco" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

@@ -111,8 +111,7 @@ public class EnderecoBean {
 		List<SelectItem> listaCidades = new ArrayList<SelectItem>();
 		
 		for (UnidadeFederativa uf : listaEstados) 
-		{	
-			
+		{			
 			if(uf.getSigla().equals(this.endereco.getEstado())) {
 				
 				for (String cidade : uf.getCidades()) {

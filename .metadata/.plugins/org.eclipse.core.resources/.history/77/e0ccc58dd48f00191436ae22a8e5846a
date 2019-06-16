@@ -31,7 +31,6 @@
 		</h:form>
 
 		<h:form>
-		
 			<p:dataTable id="tableUsuarios" value="#{usuarioBean.listUsuario}"
 				var="usuario" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
