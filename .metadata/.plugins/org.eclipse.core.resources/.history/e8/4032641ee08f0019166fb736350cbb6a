@@ -5,7 +5,7 @@ import java.util.List;
 
 public class UnidadeFederativa {
 	String sigla;
-	String Estado="AC";
+	String Estado;
 	public String getEstado() {
 		return Estado;
 	}

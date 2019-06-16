@@ -2,6 +2,22 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="javax.annotation.ManagedBean"/>
-<fullyQualifiedTypeName name="javax.faces.bean.ManagedBean"/>
 <fullyQualifiedTypeName name="br.com.exercicio.jsfcrud.bean.Livro"/>
+<fullyQualifiedTypeName name="javax.faces.bean.ManagedBean"/>
+<fullyQualifiedTypeName name="javax.faces.bean.SessionScoped"/>
+<fullyQualifiedTypeName name="br.com.exercicio.jsfcrud.vo.Usuario"/>
+<fullyQualifiedTypeName name="br.com.exercicio.jsfcrud.enumerator.Usuarios"/>
+<fullyQualifiedTypeName name="br.com.exercicio.jsfcrud.vo.Endereco"/>
+<fullyQualifiedTypeName name="java.util.UUID"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="org.primefaces.shaded.commons.io.IOUtils"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="org.primefaces.json.JSONObject"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="br.com.exercicio.jsfcrud.vo.UnidadeFederativa"/>
+<fullyQualifiedTypeName name="br.com.exercicio.jsfcrud.vo.Item"/>
+<fullyQualifiedTypeName name="br.com.exercicio.jsfcrud.enumerator.Items"/>
 </qualifiedTypeNameHistroy>
