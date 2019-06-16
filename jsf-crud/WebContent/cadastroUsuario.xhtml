@@ -7,6 +7,29 @@
 	<title>Agenda</title>
 </h:head>
 <h:body>
+	<style type="text/css">
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+</style>
+	<script>
+		function showUserSelection(idFrom) {
+			if (document.getElementById) {
+				var valueFrom = idFrom.value;
+				if (valueFrom == '1'') {
+					document.getElementById('cpfGrid').className = "show"
+					document.getElementById('cnpjGrid').className = "hide"
+				} else {
+					document.getElementById('cnpjGrid').className = "show"
+					document.getElementById('cpfGrid').className = "hide"
+				}
+			}
+		}
+	</script>
 	<p:messages showDetail="true" showSummary="false" globalOnly="true" />
 	<p:panel header="Cadastro de Usuários">
 		<h:form>
@@ -17,41 +40,68 @@
 			<p:panelGrid columns="3">
 				<p:outputLabel value="Nome:" for="nome" />
 				<p:inputText id="nome" value="#{usuarioBean.usuario.nome}"
-					required="true" />
+					required="true">
+					 <f:validateLength minimum="30" />
+					</p:inputText>
 				<p:message for="nome" />
 
 				<p:outputLabel value="Username:" for="uname" />
 				<p:inputText id="uname" value="#{usuarioBean.usuario.username}" />
 				<p:message for="uname" />
 
-				<p:outputLabel value="Password:" for="passwd" />
-				<p:password id="passwd" value="#{usuarioBean.usuario.password}" />
-				<p:message for="passwd" />
+				<p:outputLabel value="Senha" for="passwd" />
+				<p:password id="passwd" value="#{usuarioBean.usuario.password}"
+					required="true" requiredMessage="Informe a senha"
+					validatorMessage="A senha deve ter mais de 8 caracteres contendo letras e números.">
+					<f:validateRegex
+						pattern="^(?=.*[a-z0-9])(?=.*[A-Z])[a-zA-Z\d]{8,}$" />
+				</p:password>
+				<p:message for="passwd" id="passwdMsg" />
+
+				<p:outputLabel value="E-mail:" for="email" />
+				<p:inputText id="email" value="#{usuarioBean.usuario.email}"
+					required="true" requiredMessage="Informe o E-mail"
+					validatorMessage="E-mail inválido.">
+					<f:validateRegex
+						pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+				</p:inputText>
+				<p:message for="email" />
 
 				<p:outputLabel value="Sexo:" for="sexo" />
-				<p:selectOneRadio id="sexo" value="#{usuarioBean.usuario.sexo}">
+				<p:selectOneRadio id="sexo" value="#{usuarioBean.usuario.sexo}"
+					required="true">
 					<f:selectItems value="#{usuarioBean.listSexo}" />
 				</p:selectOneRadio>
 				<p:message for="sexo" />
 
+				<p:outputLabel value="Tipo:" for="tipo" />
+				<p:selectOneRadio id="tipo" value="#{usuarioBean.usuario.tipo}"
+					required="true" onclick="javascript:showUserSelection(this)">
+					<f:selectItems value="#{usuarioBean.listTipo}" />
+					<f:ajax update="cpf, cpfLabel, cpfMsg" />
+				</p:selectOneRadio>
+				<p:message for="tipo" />
+		
+				<p:outputLabel value="CPF:" for="cpf" id="cpfLabel" />
+				<p:inputMask id="cpf" value="#{usuarioBean.usuario.cpfCnpj}"
+					mask="999.999.999-99">
+					<f:converter converterId="cpfCnpjConverter" />
+				</p:inputMask>
+				<p:message for="cpf" id="cpfMsg" />
+
 				<p:outputLabel value="Data Nascimento:" for="dtNasc" />
 				<p:calendar id="dtNasc" value="#{usuarioBean.usuario.dataNasc}"
-					showOn="button" navigator="true" />
+					pattern="dd/MM/yyyy" mask="true" />
 				<p:message id="msgDtNasc" for="dtNasc" />
 
-				<p:outputLabel value="Cidade de Nascimento:" for="cidadeNasc" />
-				<p:selectOneMenu id="cidadeNasc"
-					value="#{usuarioBean.usuario.cidadeNasc}">
-					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
-					<f:selectItem itemLabel="João Pessoa" itemValue="JP" />
-					<f:selectItem itemLabel="Recife" itemValue="RE" />
-				</p:selectOneMenu>
-				<p:message for="cidadeNasc" />
-			</p:panelGrid>
+				<p:commandButton value="Cadastrar"
+					rendered="#{usuarioBean.usuario.id eq null}"
+					action="#{usuarioBean.adicionarUsuario}" ajax="false" />
 
-			<p:commandButton value="Cadastrar"
-				action="#{usuarioBean.adicionarUsuario}" 
-				ajax="false" />
+				<p:commandButton value="Salvar"
+					rendered="#{usuarioBean.usuario.id ne null}"
+					action="#{usuarioBean.adicionarUsuario}" ajax="false" />
+			</p:panelGrid>
 		</h:form>
 	</p:panel>
 </h:body>

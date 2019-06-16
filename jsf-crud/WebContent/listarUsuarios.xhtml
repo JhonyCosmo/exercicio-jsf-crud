@@ -8,14 +8,14 @@
 </h:head>
 <h:body>
 
-<style type="text/css">
-    i {
-        margin-right: 10px;
-    }
- 
-    .ui-grid-col-3 {
-        padding: 4px 10px;
-    }   
+	<style type="text/css">
+i {
+	margin-right: 10px;
+}
+
+.ui-grid-col-3 {
+	padding: 4px 10px;
+}
 </style>
 
 	<p:panel header="Listar Usuários">
@@ -24,9 +24,6 @@
 			<br />
 			<p:commandButton value="Novo"
 				action="#{usuarioBean.prepararCadastro}" ajax="false">
-			</p:commandButton>
-			<p:commandButton value="Mesma Pagina"
-				action="#{usuarioBean.prepararList}">
 			</p:commandButton>
 		</h:form>
 
@@ -39,7 +36,7 @@
 					<h:outputText value="Usuários" />
 				</f:facet>
 
-				<p:column headerText="Nome">
+				<p:column headerText="Nome" filterBy="#{usuario.nome}">
 					<h:outputText value="#{usuario.nome}" />
 				</p:column>
 
@@ -52,7 +49,9 @@
 				</p:column>
 
 				<p:column headerText="Data Nascimento">
-					<h:outputText value="#{usuario.dataNasc}" />
+					<h:outputText value="#{usuario.dataNasc}">
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Cidade de Nascimento">
@@ -63,20 +62,15 @@
 					<p:commandButton value="Detalhes" icon="fa fa-search"
 						action="#{usuarioBean.carregarDetalhes2(usuario)}"
 						update=":formDialog:dialogDetalhes"
-						oncomplete="PF('dialogDetail').show()" 
-						style="width:150px"/>
-					
-					<p:commandButton 
-					value="Editar" icon="fa fa-edit" 						
-					action="#{usuarioBean.editarUsuario(usuario)}"
-					update="tableUsuarios"
-					style="width:150px"/>
-					
-					<p:commandButton 
-					value="Deletar" icon="fa fa-remove" 						
-					action="#{usuarioBean.removerUsuario(usuario)}"
-					update="tableUsuarios"
-					style="width:150px"/>
+						oncomplete="PF('dialogDetail').show()" style="width:150px" />
+
+					<p:commandButton value="Editar" icon="fa fa-edit"
+						action="#{usuarioBean.editarUsuario(usuario)}"
+						update="tableUsuarios" style="width:150px" />
+
+					<p:commandButton value="Deletar" icon="fa fa-remove"
+						action="#{usuarioBean.removerUsuario(usuario)}"
+						update="tableUsuarios" style="width:150px" />
 				</p:column>
 			</p:dataTable>
 		</h:form>

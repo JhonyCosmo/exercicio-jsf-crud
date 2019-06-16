@@ -3,35 +3,28 @@ package br.com.exercicio.jsfcrud.bean;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.json.JSONObject;
 import org.primefaces.shaded.commons.io.IOUtils;
 
 import br.com.exercicio.jsfcrud.enumerator.Enderecos;
-import br.com.exercicio.jsfcrud.enumerator.Usuarios;
 import br.com.exercicio.jsfcrud.vo.Endereco;
-import br.com.exercicio.jsfcrud.vo.Usuario;
 
 @ManagedBean(name = "enderecoBean")
 @SessionScoped
 public class EnderecoBean {
 
-	private Endereco endereco;	
+	private Endereco endereco;
 	private List<SelectItem> listEstado;
-	
-	
+	private List<SelectItem> listaCidades;
+
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -66,104 +59,100 @@ public class EnderecoBean {
 		listEstado.add(new SelectItem("SC", "Santa Catarina"));
 		listEstado.add(new SelectItem("SP", "São Paulo"));
 		listEstado.add(new SelectItem("SE", "Sergipe"));
-		listEstado.add(new SelectItem("TO", "Tocantins"));		
-		
+		listEstado.add(new SelectItem("TO", "Tocantins"));
+
 	}
-	
-	public List<SelectItem> getListCidades(){
-		
-		List<SelectItem> listaCidades = new ArrayList<SelectItem>();
-		
-		try {	
-			String fileName = "estados-cidades.json";
-	        ClassLoader classLoader = new EnderecoBean().getClass().getClassLoader();	 
-	        File file = new File(classLoader.getResource(fileName).getFile());
-			
-	        if (file.exists())
-	        {	
-			    InputStream is = new FileInputStream(file);
-					String jsonTxt = IOUtils.toString(is, "UTF-8");					
-					JSONObject json = new JSONObject(jsonTxt);						
-					
-					for (Object objEstado : json.getJSONArray("estados"))
-					{						
-						JSONObject estado= new JSONObject(objEstado.toString());
-						//Buscando estado selecionado						
-						String uf="PB";
-						if(this.endereco.getEstado()!=null) {uf=this.endereco.getEstado();}
-						
-						if(estado.get("sigla").equals(uf.toUpperCase())) 
-						{							
-							for (Object objCidade : estado.getJSONArray("cidades")) 
-							{
-								System.out.println(objCidade.toString());
-								listaCidades.add(new SelectItem(objCidade.toString(), objCidade.toString()));								
-							}
+
+	private void updateCidades() {
+		try {
+			String fileName = "estadosCidades.json";
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			File file = new File(classLoader.getResource(fileName).getFile());
+			System.out.println("Arquivo encontrado : " + file.exists());
+			if (file.exists()) {
+				InputStream is = new FileInputStream(file);
+				String jsonTxt = IOUtils.toString(is, "UTF-8");
+				JSONObject json = new JSONObject(jsonTxt);
+
+				for (Object objEstado : json.getJSONArray("estados")) {
+					JSONObject estado = new JSONObject(objEstado.toString());
+					// Buscando estado selecionado
+					String uf = "PB";
+					if (this.endereco.getEstado() != null) {
+						uf = this.endereco.getEstado();
+					}
+
+					if (estado.get("sigla").equals(uf.toUpperCase())) {
+						for (Object objCidade : estado.getJSONArray("cidades")) {
+							System.out.println(objCidade.toString());
+							listaCidades.add(new SelectItem(objCidade.toString(), objCidade.toString()));
 						}
-					}			
-				return listaCidades;				
-	        }
-			
-		}catch(Exception ex){
+					}
+				}
+			}
+
+		} catch (Exception ex) {
 			System.out.println("Erro" + ex.getMessage());
-		}		
-		 
-		return new ArrayList<SelectItem>();				
+		}
 	}
-	        
-	
+
 	public String prepararCadastro() {
 		endereco = new Endereco();
 		return "cadastroEndereco";
 	}
-			
+
 	public EnderecoBean() {
 		endereco = new Endereco();
 	}
-	
+
 	public String prepararList() {
 		return "";
 	}
-	
+
 	public String adicionarEndereco() {
-		
-		Endereco enderecoPersistido=Enderecos.INSTANCE.get(endereco.id);
-		
-		if(enderecoPersistido!=null) {
-			enderecoPersistido=endereco;
-		}else {
+
+		Endereco enderecoPersistido = Enderecos.INSTANCE.get(endereco.id);
+
+		if (enderecoPersistido != null) {
+			enderecoPersistido = endereco;
+		} else {
 			Enderecos.INSTANCE.add(endereco);
 		}
-		
+
 		return "listarEnderecos";
 	}
-	
-	public String removerEndereco(Endereco endereco) {		
+
+	public String removerEndereco(Endereco endereco) {
 		Enderecos.INSTANCE.remove(endereco);
 		System.out.println("Removendo endereco");
 		return "listarEnderecos";
 	}
-	
+
 	public String editarEndereco(Endereco endereco) {
 		this.endereco = endereco;
 		return "cadastroEndereco";
 	}
-	
+
 	public List<Endereco> getListEndereco() {
 		return Enderecos.INSTANCE.all();
 	}
-	
+
 	public String carregarDetalhes(Endereco endereco) {
 		this.endereco = endereco;
 		return "detalhesEndereco";
 	}
-	
+
 	public void carregarDetalhes2(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
+
 	public List<SelectItem> getListEstados() {
 		return listEstado;
+	}
+
+	public List<SelectItem> getListCidades() {
+		this.updateCidades();
+		return listaCidades;
 	}
 
 	public void setListSexo(List<SelectItem> listEstado) {

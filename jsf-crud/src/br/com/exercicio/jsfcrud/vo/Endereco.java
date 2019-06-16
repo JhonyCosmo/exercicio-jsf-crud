@@ -1,7 +1,5 @@
 package br.com.exercicio.jsfcrud.vo;
 
-import java.util.Date;
-
 public class Endereco extends ModelBase{
 	
 	private String descricao;
@@ -45,8 +43,7 @@ public class Endereco extends ModelBase{
 		return cep;
 	}
 	public void setCep(String cep) {
-		this.cep = cep;
+		this.cep = cep.replaceAll("\\D", "");
 	}
-	
 
 }

@@ -7,14 +7,18 @@
 	<title>Agenda</title>
 </h:head>
 <h:body>
-<style type="text/css">
-    i {
-        margin-right: 10px;
-    }
- 
-    .ui-grid-col-3 {
-        padding: 4px 10px;
-    }   
+	<style type="text/css">
+i {
+	margin-right: 10px;
+}
+
+.ui-grid-col-3 {
+	padding: 4px 10px;
+}
+
+td {
+	text-align: center;
+}
 </style>
 
 	<p:panel header="Listar Endereços">
@@ -24,9 +28,6 @@
 			<p:commandButton value="Novo"
 				action="#{enderecoBean.prepararCadastro}" ajax="false">
 			</p:commandButton>
-			<p:commandButton value="Mesma Pagina"
-				action="#{enderecoBean.prepararList}">
-			</p:commandButton>
 		</h:form>
 
 		<h:form>
@@ -34,9 +35,16 @@
 				var="endereco" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
+
 				<f:facet name="header">
 					<h:outputText value="Endereços" />
 				</f:facet>
+
+				<p:column headerText="CEP" filterBy="#{endereco.cep}">
+					<h:outputText value="#{endereco.cep}">
+						<f:converter converterId="cepConverter" />
+					</h:outputText>
+				</p:column>
 
 				<p:column headerText="Descrição">
 					<h:outputText value="#{endereco.descricao}" />
@@ -46,38 +54,29 @@
 					<h:outputText value="#{endereco.numero}" />
 				</p:column>
 
-				<p:column headerText="Cidade">
-					<h:outputText value="#{endereco.cidade}" />
-				</p:column>
-
-				<p:column headerText="CEP">
-					<h:outputText value="#{endereco.cep}" />
-				</p:column>
-
 				<p:column headerText="Estado">
 					<h:outputText value="#{endereco.estado}" />
 				</p:column>
 
+				<p:column headerText="Cidade">
+					<h:outputText value="#{endereco.cidade}" />
+				</p:column>
+
 				<p:column headerText="Ações">
-				
+
 					<p:commandButton value="Detalhes" icon="fa fa-search"
-					action="#{enderecoBean.carregarDetalhes2(endereco)}"
-					update=":formDialog:dialogDetalhes"
-					oncomplete="PF('dialogDetail').show()" 
-					style="width:150px"/>
-					
-					<p:commandButton 
-					value="Editar" icon="fa fa-edit" 						
-					action="#{enderecoBean.editarEndereco(endereco)}"
-					update="tableEnderecos"
-					style="width:150px"/>
-					
-					<p:commandButton 
-					value="Deletar" icon="fa fa-remove" 						
-					action="#{enderecoBean.removerEndereco(endereco)}"
-					update="tableEnderecos"
-					style="width:150px"/>
-					
+						action="#{enderecoBean.carregarDetalhes2(endereco)}"
+						update=":formDialog:dialogDetalhes"
+						oncomplete="PF('dialogDetail').show()" style="width:150px" />
+
+					<p:commandButton value="Editar" icon="fa fa-edit"
+						action="#{enderecoBean.editarEndereco(endereco)}"
+						update="tableEnderecos" style="width:150px" />
+
+					<p:commandButton value="Deletar" icon="fa fa-remove"
+						action="#{enderecoBean.removerEndereco(endereco)}"
+						update="tableEnderecos" style="width:150px" />
+
 				</p:column>
 			</p:dataTable>
 		</h:form>
@@ -99,10 +98,10 @@
 
 					<p:outputLabel value="CEP:" />
 					<h:outputText value="#{enderecoBean.endereco.cep}" />
-					
+
 					<p:outputLabel value="Referência:" />
 					<h:outputText value="#{enderecoBean.endereco.pontoReferencia}" />
-					
+
 				</p:panelGrid>
 			</p:dialog>
 		</h:form>
