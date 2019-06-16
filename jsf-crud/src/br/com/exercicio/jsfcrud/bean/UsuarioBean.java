@@ -48,7 +48,7 @@ public class UsuarioBean {
 		//Validando o nome
 		Usuario usuarioNome = Usuarios.INSTANCE.getByName(usuario.getNome());
 		
-		if(Usuarios.INSTANCE.getByName(usuario.getNome())!=null) {
+		if(usuarioNome!=null) {
 			
 			if(usuarioNome.getId().equals(usuario.getId())==false) {
 				

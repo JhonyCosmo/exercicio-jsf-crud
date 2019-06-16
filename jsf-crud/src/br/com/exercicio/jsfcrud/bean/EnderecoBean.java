@@ -110,8 +110,7 @@ public class EnderecoBean {
 		}		 
 		return listaCidades;				
 	}
-	        
-	
+	        	
 	public String prepararCadastro() {
 		endereco = new Endereco();
 		return "cadastroEndereco";

@@ -586,3 +586,12 @@
 0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:19:47 -0300] "POST /jsf-crud/listarEnderecos.jsf HTTP/1.1" 200 9848
 127.0.0.1 - - [15/Jun/2019:20:20:26 -0300] "GET / HTTP/1.1" 404 994
 0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:20:27 -0300] "GET /jsf-crud/WEB-INF/classes/br/com/exercicio/jsfcrud/bean/EnderecoBean.java HTTP/1.1" 404 992
+127.0.0.1 - - [15/Jun/2019:20:21:50 -0300] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:21:58 -0300] "GET /jsf-crud/listarEnderecos.jsf HTTP/1.1" 200 10705
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:22:01 -0300] "POST /jsf-crud/listarEnderecos.jsf HTTP/1.1" 200 15207
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:22:05 -0300] "POST /jsf-crud/cadastroEndereco.jsf HTTP/1.1" 200 14391
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:22:10 -0300] "POST /jsf-crud/cadastroEndereco.jsf HTTP/1.1" 200 89368
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:22:17 -0300] "POST /jsf-crud/cadastroEndereco.jsf HTTP/1.1" 200 137840
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:22:25 -0300] "POST /jsf-crud/cadastroEndereco.jsf HTTP/1.1" 200 13216
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:22:25 -0300] "GET /jsf-crud/javax.faces.resource/fa/fontawesome-webfont.woff2.jsf?ln=primefaces&v=7.0?v=4.7.0 HTTP/1.1" 200 77244
+0:0:0:0:0:0:0:1 - - [15/Jun/2019:20:22:27 -0300] "POST /jsf-crud/listarEnderecos.jsf HTTP/1.1" 200 151414
